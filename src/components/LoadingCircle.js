@@ -9,7 +9,7 @@ const styles = theme => ({
   },
 });
 
-const LoadingCircle = (props) => {
+const LoadingCircle = props => {
   const { classes } = props;
   return (
     <div>

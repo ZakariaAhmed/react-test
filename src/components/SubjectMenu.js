@@ -3,12 +3,13 @@ import PropTypes from 'prop-types'
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import LoadingCircle from './LoadingCircle';
-import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import  InputLabel  from '@material-ui/core/InputLabel';
 
-const SubjectMenu = ({subjects, isFetching, fetched, value, selectSubject, onChange}) => {
+const SubjectMenu = ({subjects, fetched, value, onChange}) => {
 
-    const subjectData = subjects.map((subject, key) => <MenuItem onClick={selectSubject} value={subject} key={key}>{subject}</MenuItem>)
-    const subjectMenu = fetched ? <Select autoWidth={true} value={value} onChange={onChange}>{subjectData}</Select> : <LoadingCircle />
+    const subjectData = subjects.map((subject, key) => <MenuItem value={subject} key={key}>{subject}</MenuItem>)
+    const subjectMenu = fetched ? <React.Fragment><InputLabel htmlFor="subject-helper">Select subject</InputLabel><Select value={value} onChange={onChange} input={<Input name="subject" id="subject-helper" />}>{subjectData}</Select></React.Fragment>: <LoadingCircle />
     return (
     <div>
       {subjectMenu}
@@ -18,12 +19,9 @@ const SubjectMenu = ({subjects, isFetching, fetched, value, selectSubject, onCha
 
 SubjectMenu.propTypes = {
     subjects:PropTypes.array,
-    isFetching:PropTypes.bool,
     fetched:PropTypes.bool,
-    MenuOnClick:PropTypes.func,
     value:PropTypes.string,
     onChange:PropTypes.func,
-    selectSubject:PropTypes.func
 }
 
 export default SubjectMenu;

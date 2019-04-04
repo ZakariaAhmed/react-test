@@ -1,28 +1,41 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react'
 import './App.css';
+import { connect } from "react-redux";
+import {thunk_getSubjects} from './redux/actions';
+import Main from './pages/Main';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      subjects:[],
+      finishedLoading:false
+    }
+
+  }
+  componentDidMount()
+  {
+    this.props.dispatch(thunk_getSubjects())
+  }
+
   render() {
+    console.log(this.props.subjects)
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+        <header>
+          <h1>Books</h1>
         </header>
+        <Main />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    subjects:state.subjects
+  };
+};
+
+
+export default connect(mapStateToProps)(App);
